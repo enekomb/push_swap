@@ -1,0 +1,6 @@
+push_swap
+checker
+*.o
+*.a
+.DS_Store
+__pycache__/
