@@ -20,9 +20,9 @@ CORE		= 	main.c  						\
 				core/create_stack.c 			\
 				core/print_stack.c  			\
 				core/is_sorted.c  				\
-				algorithim/sort_stack.c 		\
-				algorithim/quick_sort.c 		\
-				algorithim/final_sort.c 		\
+				algorithm/sort_stack.c 		\
+				algorithm/quick_sort.c 		\
+				algorithm/final_sort.c 		\
 
 ACTIONS		= 	actions/push.c					\
 				actions/reverse.c 				\
@@ -60,7 +60,7 @@ $(NAME): $(OBJS)
 				@echo $(Y)Compiling [$(NAME)]...$(X)
 				@echo $(G)Finished [$(NAME)]$(X)
 				make -C $(PRINTF)
-				@$(CC) $(CFLAGS) $(PRINTF)/libftprintf.a -o $@ $^
+				@$(CC) $(CFLAGS) -o $@ $^ $(PRINTF)/libftprintf.a
 
 
 clean:
