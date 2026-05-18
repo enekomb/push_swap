@@ -12,39 +12,69 @@
 
 #include "../push_swap.h"
 
+static int	is_valid_int(const char *str)
+{
+	long	n;
+	int		i;
+
+	i = 0;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	if (!str[i])
+		return (0);
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	n = 0;
+	i = (str[0] == '+' || str[0] == '-') ? 1 : 0;
+	while (str[i])
+	{
+		if (str[0] == '-')
+			n = n * 10 - (str[i++] - '0');
+		else
+			n = n * 10 + (str[i++] - '0');
+		if (n > INT_MAX || n < INT_MIN)
+			return (0);
+	}
+	return (1);
+}
+
 int	*check_args(int size, char *argv[])
 {
 	int	i;
 	int	j;
+	int	k;
 	int	*nums;
 
 	i = 1;
 	j = 0;
 	nums = malloc(sizeof(int) * size);
 	if (!nums)
-		exit(ft_putstr_fd("Malloc error\n", STDERR_FILENO));
+		exit(ft_putstr_fd("Error\n", STDERR_FILENO));
 	while (i < size)
 	{
-		if (ft_atoi(argv[i]))
-			nums[j++] = ft_atoi(argv[i++]);
-		else
+		if (!is_valid_int(argv[i]))
 		{
 			free(nums);
-			exit(ft_putstr_fd("Non valid arguments\n", STDERR_FILENO));
+			exit(ft_putstr_fd("Error\n", STDERR_FILENO));
 		}
+		nums[j++] = ft_atoi(argv[i++]);
 	}
 	i = 0;
-	while (i < size)
+	while (i < j)
 	{
-		j = i + 1;
-		while (j < size)
+		k = i + 1;
+		while (k < j)
 		{
-			if (nums[i] == nums[j])
+			if (nums[i] == nums[k])
 			{
-				exit(ft_putstr_fd("Repeated arguments\n", STDERR_FILENO));
 				free(nums);
+				exit(ft_putstr_fd("Error\n", STDERR_FILENO));
 			}
-			j++;
+			k++;
 		}
 		i++;
 	}

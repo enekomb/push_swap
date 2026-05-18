@@ -43,8 +43,14 @@ void	push_swap(int size, int *nums)
 
 int	main(int argc, char *argv[])
 {
-	if (argc > 2)
-		push_swap((argc - 1), check_args(argc, argv));
-	else
+	int	*nums;
+
+	if (argc < 2)
 		return (0);
+	nums = check_args(argc, argv);
+	if (argc > 2)
+		push_swap((argc - 1), nums);
+	else
+		free(nums);
+	return (0);
 }
